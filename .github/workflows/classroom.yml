@@ -202,20 +202,26 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        LOGIN-PAGE-1_RESULTS: "${{steps.login-page-1.outputs.result}}"
-        LOGIN-PAGE-2_RESULTS: "${{steps.login-page-2.outputs.result}}"
-        LOGIN-PAGE-3_RESULTS: "${{steps.login-page-3.outputs.result}}"
-        LOGIN-PAGE-4_RESULTS: "${{steps.login-page-4.outputs.result}}"
-        LOGIN-PAGE-5_RESULTS: "${{steps.login-page-5.outputs.result}}"
-        LOGIN-PAGE-6_RESULTS: "${{steps.login-page-6.outputs.result}}"
-        LOGIN-PAGE-7_RESULTS: "${{steps.login-page-7.outputs.result}}"
-
-        REGISTER-PAGE-1_RESULTS: "${{steps.register-page-1.outputs.result}}"
-        REGISTER-PAGE-2_RESULTS: "${{steps.register-page-2.outputs.result}}"
-        REGISTER-PAGE-3_RESULTS: "${{steps.register-page-3.outputs.result}}"
+        FORMS-1_RESULTS: "${{steps.forms-1.outputs.result}}"
+        FORMS-2_RESULTS: "${{steps.forms-2.outputs.result}}"
+        FORMS-3_RESULTS: "${{steps.forms-3.outputs.result}}"
+        FORMS-4_RESULTS: "${{steps.forms-4.outputs.result}}"
+        FORMS-5_RESULTS: "${{steps.forms-5.outputs.result}}"
+        FORMS-6_RESULTS: "${{steps.forms-6.outputs.result}}"
+        COMPONENTS-1_RESULTS: "${{steps.components-1.outputs.result}}"
+        COMPONENTS-2_RESULTS: "${{steps.components-2.outputs.result}}"
+        COMPONENTS-3_RESULTS: "${{steps.components-3.outputs.result}}"
+        COMPONENTS-4_RESULTS: "${{steps.components-4.outputs.result}}"
+        REPETITION-1_RESULTS: "${{steps.repetition-1.outputs.result}}"
+        REPETITION-2_RESULTS: "${{steps.repetition-2.outputs.result}}"
+        DELAYS-1_RESULTS: "${{steps.delays-1.outputs.result}}"
+        DELAYS-2_RESULTS: "${{steps.delays-2.outputs.result}}"
+        DATETIME-1_RESULTS: "${{steps.datetime-1.outputs.result}}"
+        RESPONSIVE-1_RESULTS: "${{steps.responsive-1.outputs.result}}"
+        RESPONSIVE-2_RESULTS: "${{steps.responsive-2.outputs.result}}"
 
       with:
-        runners: login-page-1,login-page-2,login-page-3,login-page-4,login-page-5,login-page-6,login-page-7,register-page-1,register-page-2,register-page-3
+        runners: forms-1,forms-2,forms-3,forms-4,forms-5,forms-6,components-1,components-2,components-3,components-4,repetition-1,repetition-2,delays-1,delays-2,datetime-1,responsive-1,responsive-2
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
