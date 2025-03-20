@@ -1,0 +1,156 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    env:
+      CI: true
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Install dependencies
+      run: npm install
+      timeout-minutes: 2
+    - name: Install Chromium browser
+      run: npx playwright install chromium --with-deps
+      timeout-minutes: 2
+    - name: Run tests
+      run: "npx playwright test --reporter=list,html --project=chromium --trace=on"
+      timeout-minutes: 3
+      continue-on-error: true
+      env:
+        # In real world, these would be defined in GitHub secrets
+        USER1_USERNAME: alice@example.com
+        USER1_PASSWORD: 'nUL9zA3q=Nt7\N,0?CL&c74U,Ic)0)dN'
+        USER2_USERNAME: bob@example.com
+        USER2_PASSWORD: '}3jc\xJnQ=E=+Q_y/%Hd311bW#6{_Oyj'
+
+    - name: Extract traces
+      run: "./.github/extract_traces.sh"
+
+    # login page tests
+    - name: User navigates to login page
+      id: login-page-1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: User navigates to login page
+        setup-command: ''
+        command: "./.github/find_trace.sh 'your@email.com'"
+        timeout: 1
+        max-score: 10
+    - name: Login email is validated
+      id: login-page-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Login email is validated
+        setup-command: ''
+        command: "./.github/find_trace.sh 'Please enter a valid email address.'"
+        timeout: 1
+        max-score: 10
+    - name: Login password is validated
+      id: login-page-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Login password is validated
+        setup-command: ''
+        command: "./.github/find_trace.sh 'Password must be at least 6 characters long.'"
+        timeout: 1
+        max-score: 10
+    - name: Login rejects invalid credentials
+      id: login-page-4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Login rejects invalid credentials
+        setup-command: ''
+        command: "./.github/find_trace.sh 'Invalid email or password'"
+        timeout: 1
+        max-score: 10
+    - name: Login accepts correct credentials
+      id: login-page-5
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Login accepts correct credentials
+        setup-command: ''
+        command: "./.github/find_trace.sh 'Successfully logged in'"
+        timeout: 1
+        max-score: 10
+    - name: User can log out
+      id: login-page-6
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: User can log out
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You have been logged out.'"
+        timeout: 1
+        max-score: 10
+    - name: Unauthenticated users cannot access /dashboard
+      id: login-page-7
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Unauthenticated users cannot access /dashboard
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You must be logged in to enter the dashboard'"
+        timeout: 1
+        max-score: 10
+
+    # registration page tests
+    - name: Registration page form validation
+      id: register-page-1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Registration page form validation
+        setup-command: ''
+        command: "./.github/find_trace.sh 'name is required'"
+        timeout: 1
+        max-score: 10
+    - name: Registration email is already in use
+      id: register-page-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Registration email is already in use
+        setup-command: ''
+        command: "./.github/find_trace.sh 'Email is already in use'"
+        timeout: 1
+        max-score: 10
+    - name: Registration creates a new account
+      id: register-page-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Registration creates a new account
+        setup-command: ''
+        command: "./.github/find_trace.sh 'Account created successfully'"
+        timeout: 1
+        max-score: 10
+
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        LOGIN-PAGE-1_RESULTS: "${{steps.login-page-1.outputs.result}}"
+        LOGIN-PAGE-2_RESULTS: "${{steps.login-page-2.outputs.result}}"
+        LOGIN-PAGE-3_RESULTS: "${{steps.login-page-3.outputs.result}}"
+        LOGIN-PAGE-4_RESULTS: "${{steps.login-page-4.outputs.result}}"
+        LOGIN-PAGE-5_RESULTS: "${{steps.login-page-5.outputs.result}}"
+        LOGIN-PAGE-6_RESULTS: "${{steps.login-page-6.outputs.result}}"
+        LOGIN-PAGE-7_RESULTS: "${{steps.login-page-7.outputs.result}}"
+
+        REGISTER-PAGE-1_RESULTS: "${{steps.register-page-1.outputs.result}}"
+        REGISTER-PAGE-2_RESULTS: "${{steps.register-page-2.outputs.result}}"
+        REGISTER-PAGE-3_RESULTS: "${{steps.register-page-3.outputs.result}}"
+
+      with:
+        runners: login-page-1,login-page-2,login-page-3,login-page-4,login-page-5,login-page-6,login-page-7,register-page-1,register-page-2,register-page-3
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report
+        retention-days: 30
