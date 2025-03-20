@@ -127,7 +127,7 @@ jobs:
         setup-command: ''
         command: "./.github/find_trace.sh 'You have selected the correct date using a custom date picker'"
         timeout: 1
-        max-score: 10
+        max-score: 5
 
     - name: Mark todos as completed
       id: repetition-1
@@ -177,7 +177,7 @@ jobs:
         setup-command: ''
         command: "./.github/find_trace.sh 'Time travel can be easy with the right tools'"
         timeout: 1
-        max-score: 10
+        max-score: 5
 
     - name: Dark mode
       id: responsive-1
@@ -189,15 +189,45 @@ jobs:
         timeout: 1
         max-score: 5
 
-    - name: Responsive design
+    - name: Dark mode screenshot
       id: responsive-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Dark mode screenshots
+        setup-command: ''
+        command: "./.github/find_file.sh 'dark-mode.png'"
+        timeout: 1
+        max-score: 5
+
+    - name: Light mode screenshot
+      id: responsive-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Light mode screenshot
+        setup-command: ''
+        command: "./.github/find_file.sh 'light-mode.png'"
+        timeout: 1
+        max-score: 5
+
+    - name: Responsive design
+      id: responsive-4
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Responsive design
         setup-command: ''
         command: "./.github/find_trace.sh 'You have successfully tested all supported screen sizes'"
         timeout: 1
-        max-score: 10
+        max-score: 5
+
+    - name: Responsive design screenshots
+      id: responsive-5
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Responsive design screenshots
+        setup-command: ''
+        command: "./.github/find_file.sh 'small.png'"
+        timeout: 1
+        max-score: 5
 
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
@@ -219,9 +249,12 @@ jobs:
         DATETIME-1_RESULTS: "${{steps.datetime-1.outputs.result}}"
         RESPONSIVE-1_RESULTS: "${{steps.responsive-1.outputs.result}}"
         RESPONSIVE-2_RESULTS: "${{steps.responsive-2.outputs.result}}"
+        RESPONSIVE-3_RESULTS: "${{steps.responsive-3.outputs.result}}"
+        RESPONSIVE-4_RESULTS: "${{steps.responsive-4.outputs.result}}"
+        RESPONSIVE-5_RESULTS: "${{steps.responsive-5.outputs.result}}"
 
       with:
-        runners: forms-1,forms-2,forms-3,forms-4,forms-5,forms-6,components-1,components-2,components-3,components-4,repetition-1,repetition-2,delays-1,delays-2,datetime-1,responsive-1,responsive-2
+        runners: forms-1,forms-2,forms-3,forms-4,forms-5,forms-6,components-1,components-2,components-3,components-4,repetition-1,repetition-2,delays-1,delays-2,datetime-1,responsive-1,responsive-2,responsive-3,responsive-4,responsive-5
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
