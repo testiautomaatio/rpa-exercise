@@ -25,110 +25,179 @@ jobs:
       run: "npx playwright test --reporter=list,html --project=chromium --trace=on"
       timeout-minutes: 3
       continue-on-error: true
-      env:
-        # In real world, these would be defined in GitHub secrets
-        USER1_USERNAME: alice@example.com
-        USER1_PASSWORD: 'nUL9zA3q=Nt7\N,0?CL&c74U,Ic)0)dN'
-        USER2_USERNAME: bob@example.com
-        USER2_PASSWORD: '}3jc\xJnQ=E=+Q_y/%Hd311bW#6{_Oyj'
 
     - name: Extract traces
       run: "./.github/extract_traces.sh"
 
-    # login page tests
-    - name: User navigates to login page
-      id: login-page-1
+    - name: Basic text input
+      id: forms-1
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: User navigates to login page
+        test-name: Basic text input
         setup-command: ''
-        command: "./.github/find_trace.sh 'your@email.com'"
+        command: "./.github/find_trace.sh 'Nice job! You have greeted the page'"
         timeout: 1
-        max-score: 10
-    - name: Login email is validated
-      id: login-page-2
+        max-score: 5
+
+    - name: Input without proper attributes
+      id: forms-2
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Login email is validated
+        test-name: Input without proper attributes
         setup-command: ''
-        command: "./.github/find_trace.sh 'Please enter a valid email address.'"
+        command: "./.github/find_trace.sh 'Done! But be careful, that phrase alone has crashed entire applications.'"
         timeout: 1
-        max-score: 10
-    - name: Login password is validated
-      id: login-page-3
+        max-score: 5
+
+    - name: Reading values from the page
+      id: forms-3
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Login password is validated
+        test-name: Reading values from the page
         setup-command: ''
-        command: "./.github/find_trace.sh 'Password must be at least 6 characters long.'"
+        command: "./.github/find_trace.sh 'You have successfully read a value from the page!'"
         timeout: 1
-        max-score: 10
-    - name: Login rejects invalid credentials
-      id: login-page-4
+        max-score: 5
+
+    - name: Radio buttons
+      id: forms-4
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Login rejects invalid credentials
+        test-name: Radio buttons
         setup-command: ''
-        command: "./.github/find_trace.sh 'Invalid email or password'"
+        command: "./.github/find_trace.sh '📻🎸🎵'"
         timeout: 1
-        max-score: 10
-    - name: Login accepts correct credentials
-      id: login-page-5
+        max-score: 5
+
+    - name: Checkboxes
+      id: forms-5
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Login accepts correct credentials
+        test-name: Checkboxes
         setup-command: ''
-        command: "./.github/find_trace.sh 'Successfully logged in'"
+        command: "./.github/find_trace.sh 'Button-mashing detected.'"
         timeout: 1
-        max-score: 10
-    - name: User can log out
-      id: login-page-6
+        max-score: 5
+
+    - name: Alerts and prompts
+      id: forms-6
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: User can log out
+        test-name: Alerts and prompts
         setup-command: ''
-        command: "./.github/find_trace.sh 'You have been logged out.'"
+        command: "./.github/find_trace.sh 'You have handled the prompt successfully!'"
         timeout: 1
-        max-score: 10
-    - name: Unauthenticated users cannot access /dashboard
-      id: login-page-7
+        max-score: 5
+
+    - name: Standard select element
+      id: components-1
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Unauthenticated users cannot access /dashboard
+        test-name: Standard select element
         setup-command: ''
-        command: "./.github/find_trace.sh 'You must be logged in to enter the dashboard'"
+        command: "./.github/find_trace.sh 'You selected the correct option from a standard select element'"
+        timeout: 1
+        max-score: 5
+
+    - name: Custom select element
+      id: components-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Custom select element
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You have selected the correct color using a custom select element'"
+        timeout: 1
+        max-score: 5
+
+    - name: Standard date picker
+      id: components-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Standard date picker
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You have selected the correct date using a standard date picker'"
+        timeout: 1
+        max-score: 5
+
+    - name: Custom date picker
+      id: components-4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Custom date picker
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You have selected the correct date using a custom date picker'"
         timeout: 1
         max-score: 10
 
-    # registration page tests
-    - name: Registration page form validation
-      id: register-page-1
+    - name: Mark todos as completed
+      id: repetition-1
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Registration page form validation
+        test-name: Mark todos as completed
         setup-command: ''
-        command: "./.github/find_trace.sh 'name is required'"
+        command: "./.github/find_trace.sh 'You literally checked all the boxes'"
         timeout: 1
-        max-score: 10
-    - name: Registration email is already in use
-      id: register-page-2
+        max-score: 5
+
+    - name: Counter
+      id: repetition-2
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Registration email is already in use
+        test-name: Counter
         setup-command: ''
-        command: "./.github/find_trace.sh 'Email is already in use'"
+        command: "./.github/find_trace.sh 'If you keep clicking, I might start charging per press'"
         timeout: 1
-        max-score: 10
-    - name: Registration creates a new account
-      id: register-page-3
+        max-score: 5
+
+    - name: Delayed appearance
+      id: delays-1
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Registration creates a new account
+        test-name: Delayed appearance
         setup-command: ''
-        command: "./.github/find_trace.sh 'Account created successfully'"
+        command: "./.github/find_trace.sh 'Nice job! Hello to you too!'"
+        timeout: 1
+        max-score: 5
+
+    - name: Delayed enablement
+      id: delays-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Delayed enablement
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You must be a real tester!'"
+        timeout: 1
+        max-score: 5
+
+    - name: Test page using different dates
+      id: datetime-1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test page using different dates
+        setup-command: ''
+        command: "./.github/find_trace.sh 'Time travel can be easy with the right tools'"
         timeout: 1
         max-score: 10
 
+    - name: Dark mode
+      id: responsive-1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Dark mode
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You have successfully switched between the modes'"
+        timeout: 1
+        max-score: 5
+
+    - name: Responsive design
+      id: responsive-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Responsive design
+        setup-command: ''
+        command: "./.github/find_trace.sh 'You have successfully tested all supported screen sizes'"
+        timeout: 1
+        max-score: 10
 
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
