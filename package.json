@@ -1,7 +1,6 @@
 {
-  "name": "authentication-tests",
+  "name": "rpa-exercise",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {},
   "devDependencies": {
     "@playwright/test": "^1.51.0",

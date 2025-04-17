@@ -22,243 +22,90 @@ jobs:
       run: npx playwright install chromium --with-deps
       timeout-minutes: 2
     - name: Run tests
-      run: "npx playwright test --reporter=list,html --project=chromium --trace=on"
+      run: npx playwright test --reporter="list,html" --project=chromium --trace=on --retries=0
       timeout-minutes: 3
       continue-on-error: true
 
     - name: Extract traces
       run: "./.github/extract_traces.sh"
 
-    - name: Basic text input
-      id: forms-1
+    - name: Access the legacy cars table
+      id: access-legacy
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Basic text input
+        test-name: Access the legacy cars table
         setup-command: ''
-        command: "./.github/find_trace.sh 'Nice job! You have greeted the page'"
+        command: "./.github/find_trace.sh 'Final_CarSheet_v5_(ignore_others).xls'"
         timeout: 1
-        max-score: 5
+        max-score: 10
 
-    - name: Input without proper attributes
-      id: forms-2
+    - name: Open details of a car
+      id: open-details
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Input without proper attributes
+        test-name: Open details of a car
         setup-command: ''
-        command: "./.github/find_trace.sh 'Done! But be careful, that phrase alone has crashed entire applications.'"
+        command: "./.github/find_trace.sh 'DeLorean_DMC-12.xls'"
         timeout: 1
-        max-score: 5
+        max-score: 10
 
-    - name: Reading values from the page
-      id: forms-3
+    - name: Switch to usage tab on car details
+      id: switch-tabs
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Reading values from the page
+        test-name: Switch to usage tab on car details
         setup-command: ''
-        command: "./.github/find_trace.sh 'You have successfully read a value from the page!'"
+        command: "./.github/find_trace.sh 'Fuel type'"
         timeout: 1
-        max-score: 5
+        max-score: 10
 
-    - name: Radio buttons
-      id: forms-4
+    - name: Access the target system
+      id: access-target
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Radio buttons
+        test-name: Access the target system
         setup-command: ''
-        command: "./.github/find_trace.sh '📻🎸🎵'"
+        command: "./.github/find_trace.sh 'Car registry 2.0'"
         timeout: 1
-        max-score: 5
+        max-score: 10
 
-    - name: Checkboxes
-      id: forms-5
+    - name: Add a single car successfully
+      id: add-car
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Checkboxes
+        test-name: Add a single car successfully
         setup-command: ''
-        command: "./.github/find_trace.sh 'Button-mashing detected.'"
+        command: "./.github/find_trace.sh 'added successfully!'"
         timeout: 1
-        max-score: 5
+        max-score: 10
 
-    - name: Alerts and prompts
-      id: forms-6
+    - name: Add the rest of the cars successfully
+      id: add-all-cars
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Alerts and prompts
+        test-name: Add the rest of the cars successfully
         setup-command: ''
-        command: "./.github/find_trace.sh 'You have handled the prompt successfully!'"
+        command: "./.github/find_trace.sh 'You have completed the exercise!'"
         timeout: 1
-        max-score: 5
+        max-score: 50
 
-    - name: Standard select element
-      id: components-1
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Standard select element
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You selected the correct option from a standard select element'"
-        timeout: 1
-        max-score: 5
-
-    - name: Custom select element
-      id: components-2
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Custom select element
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You have selected the correct color using a custom select element'"
-        timeout: 1
-        max-score: 5
-
-    - name: Standard date picker
-      id: components-3
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Standard date picker
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You have selected the correct date using a standard date picker'"
-        timeout: 1
-        max-score: 5
-
-    - name: Custom date picker
-      id: components-4
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Custom date picker
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You have selected the correct date using a custom date picker'"
-        timeout: 1
-        max-score: 5
-
-    - name: Mark todos as completed
-      id: repetition-1
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Mark todos as completed
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You literally checked all the boxes'"
-        timeout: 1
-        max-score: 5
-
-    - name: Counter
-      id: repetition-2
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Counter
-        setup-command: ''
-        command: "./.github/find_trace.sh 'If you keep clicking, I might start charging per press'"
-        timeout: 1
-        max-score: 5
-
-    - name: Delayed appearance
-      id: delays-1
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Delayed appearance
-        setup-command: ''
-        command: "./.github/find_trace.sh 'Nice job! Hello to you too!'"
-        timeout: 1
-        max-score: 5
-
-    - name: Delayed enablement
-      id: delays-2
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Delayed enablement
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You must be a real tester!'"
-        timeout: 1
-        max-score: 5
-
-    - name: Test page using different dates
-      id: datetime-1
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Test page using different dates
-        setup-command: ''
-        command: "./.github/find_trace.sh 'Time travel can be easy with the right tools'"
-        timeout: 1
-        max-score: 5
-
-    - name: Dark mode
-      id: responsive-1
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Dark mode
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You have successfully switched between the modes'"
-        timeout: 1
-        max-score: 5
-
-    - name: Dark mode screenshot
-      id: responsive-2
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Dark mode screenshots
-        setup-command: ''
-        command: "./.github/find_file.sh 'dark-mode.png'"
-        timeout: 1
-        max-score: 5
-
-    - name: Light mode screenshot
-      id: responsive-3
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Light mode screenshot
-        setup-command: ''
-        command: "./.github/find_file.sh 'light-mode.png'"
-        timeout: 1
-        max-score: 5
-
-    - name: Responsive design
-      id: responsive-4
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Responsive design
-        setup-command: ''
-        command: "./.github/find_trace.sh 'You have successfully tested all supported screen sizes'"
-        timeout: 1
-        max-score: 5
-
-    - name: Responsive design screenshots
-      id: responsive-5
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Responsive design screenshots
-        setup-command: ''
-        command: "./.github/find_file.sh 'small.png'"
-        timeout: 1
-        max-score: 5
 
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        FORMS-1_RESULTS: "${{steps.forms-1.outputs.result}}"
-        FORMS-2_RESULTS: "${{steps.forms-2.outputs.result}}"
-        FORMS-3_RESULTS: "${{steps.forms-3.outputs.result}}"
-        FORMS-4_RESULTS: "${{steps.forms-4.outputs.result}}"
-        FORMS-5_RESULTS: "${{steps.forms-5.outputs.result}}"
-        FORMS-6_RESULTS: "${{steps.forms-6.outputs.result}}"
-        COMPONENTS-1_RESULTS: "${{steps.components-1.outputs.result}}"
-        COMPONENTS-2_RESULTS: "${{steps.components-2.outputs.result}}"
-        COMPONENTS-3_RESULTS: "${{steps.components-3.outputs.result}}"
-        COMPONENTS-4_RESULTS: "${{steps.components-4.outputs.result}}"
-        REPETITION-1_RESULTS: "${{steps.repetition-1.outputs.result}}"
-        REPETITION-2_RESULTS: "${{steps.repetition-2.outputs.result}}"
-        DELAYS-1_RESULTS: "${{steps.delays-1.outputs.result}}"
-        DELAYS-2_RESULTS: "${{steps.delays-2.outputs.result}}"
-        DATETIME-1_RESULTS: "${{steps.datetime-1.outputs.result}}"
-        RESPONSIVE-1_RESULTS: "${{steps.responsive-1.outputs.result}}"
-        RESPONSIVE-2_RESULTS: "${{steps.responsive-2.outputs.result}}"
-        RESPONSIVE-3_RESULTS: "${{steps.responsive-3.outputs.result}}"
-        RESPONSIVE-4_RESULTS: "${{steps.responsive-4.outputs.result}}"
-        RESPONSIVE-5_RESULTS: "${{steps.responsive-5.outputs.result}}"
+        ACCESS-LEGACY_RESULTS: "${{steps.access-legacy.outputs.result}}"
+        OPEN-DETAILS_RESULTS: "${{steps.open-details.outputs.result}}"
+        SWITCH-TABS_RESULTS: "${{steps.switch-tabs.outputs.result}}"
+        ACCESS-TARGET_RESULTS: "${{steps.access-target.outputs.result}}"
+        ADD-CAR_RESULTS: "${{steps.add-car.outputs.result}}"
+        ADD-ALL-CARS_RESULTS: "${{steps.add-all-cars.outputs.result}}"
 
       with:
-        runners: forms-1,forms-2,forms-3,forms-4,forms-5,forms-6,components-1,components-2,components-3,components-4,repetition-1,repetition-2,delays-1,delays-2,datetime-1,responsive-1,responsive-2,responsive-3,responsive-4,responsive-5
+        runners: access-legacy,open-details,switch-tabs,access-target,add-car,add-all-cars
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: playwright-report
-        retention-days: 30
+        retention-days: 3
