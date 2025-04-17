@@ -2,7 +2,7 @@
 
 Tässä tehtävässä sovelletaan Playwright-työkalua tietojen siirron toteuttamiseen vanhasta järjestelmästä uuteen. Siirto toteutetaan automatisoimalla vaiheet, jotka veisivät normaalilta käyttäjältä runsaasti aikaa ja jotka olisivat virhealttiita. Tällaisesta ratkaisusta käytetään usein nimitystä "ohjelmistorobotiikka" tai Robotic Process Automation (RPA). Ohjelmistorobotiikkaa tarvitaan erityisesti silloin, kun järjestelmät eivät tarjoa rajapintoja tai muuta tapaa tietojen siirtoon tai eivät muuten ole yhteensopivia.
 
-Tehtävä tarkastetaan vaiheittain ja siitä voi saada merkittävän osan pisteistä, vaikka et saisi kaikkia tietoja siirrettyä.
+Tehtävä tarkastetaan vaiheittain ja siitä voi saada merkittävän osan pisteistä, vaikka et saisikaan kaikkia tietoja siirrettyä.
 
 
 ## Tehtävän ja testauksen lähtökohdat
