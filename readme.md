@@ -59,6 +59,8 @@ Vanha järjestelmä löytyy osoitteesta https://rpa-exercise-legacy-system.pages
 
 [Uusi järjestelmä](https://rpa-exercise-target-system.pages.dev/) on astetta nykyaikaisempi, mutta yksinkertaisuuden vuoksi pelkistetty. Sivu pitää kirjaa syötetyistä autoista ja tarkastaa automaattisesti syötettyjen tietojen oikeellisuuden verraten niitä vanhan järjestelmän tietoihin. Mikäli tiedot eivät täsmää, näytetään käyttäjälle virheilmoitus, minkä lisäksi selaimen konsoliin lokitetaan tarkemmat tiedot virheistä. Uusi järjestelmä ei tallenna syötettyjä tietoja pysyvästi, vaan tiedot nollautuvat aina sivua avattaessa tai päivitettäessä.
 
+![Autojen kopiointi vanhasta järjestelmästä uuteen](./diagram.png)
+
 *__Vinkki:__ vanha järjestelmä on hidas ja sen tietoturvassa on puutteita. Voit kokeilla, josko pystyisit ohittamaan hitaan kirjautumisen ja pääsemään suoraan käsiksi autojen tietoihin. Tämä voi nopeuttaa tietojen siirtoa, mutta se ei ole pakollista. Tehtävässä on tarkoitus keskittyä automaation toteuttamiseen, ei tietoturvaan, emmekä yleisesti suosittele hyödyntämään tällaisia menetelmiä.*
 
 ## Ratkaisun toteuttaminen
