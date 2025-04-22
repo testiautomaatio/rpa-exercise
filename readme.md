@@ -44,9 +44,9 @@ Testien suorittaminen edellyttää myös selainten asentamista, minkä olet toiv
 > Thanks in advance for helping us finally enter the 21st century.
 >
 > Best regards,<br />
-> Kari K. Karavaunu<br />
+> Helena Huoltokirja<br />
 > Owner, AutoLegacy Oy<br />
-> kari@localhost
+> helena@localhost
 
 
 ## Käytettävät sivustot
