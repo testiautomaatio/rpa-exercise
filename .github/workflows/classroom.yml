@@ -45,7 +45,7 @@ jobs:
       with:
         test-name: Open details of a car
         setup-command: ''
-        command: "./.github/find_trace.sh 'DeLorean_DMC-12.xls'"
+        command: "./.github/find_trace.sh 'Stainless Steel'"
         timeout: 1
         max-score: 10
 
