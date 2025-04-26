@@ -17,6 +17,10 @@ npx playwright test
 Testien suorittaminen edellyttää myös selainten asentamista, minkä olet toivottavasti tehnyt jo aikaisemmassa tehtävässä. Tarvittaessa [asenna esimerkiksi Chromium Playwrightin ohjeita seuraten](https://playwright.dev/docs/browsers).
 
 
+> [!TIP]
+> Tehtäväpohjassa löytyy valmiina `tests`-kansio, jossa on yksi TypeScript-esimerkkitiedosto. Voit halutessasi toteuttaa ratkaisusi tähän tiedostoon tai luoda uusia tiedostoja, kunhan Playwright löytää ne `tests`-kansiosta. Esimerkkitiedostossa ei ole käytetty TypeScriptin ominaisuuksia, joten voit halutessasi nimetä sen uudelleen `.js`-päätteiseksi tiedostoksi ja kirjoittaa oman ratkaisusi JavaScriptillä (esim. `git mv tiedosto.ts tiedosto.js`).
+
+
 ## Tehtävä
 
 > Subject: Help Needed: Transferring Our Fleet Data To A New System
