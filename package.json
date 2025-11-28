@@ -1,9 +1,11 @@
 {
   "name": "rpa-exercise",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "tasks": "npx playwright test --reporter=list,html --project=chromium --trace=on"
+  },
   "devDependencies": {
-    "@playwright/test": "^1.51.0",
-    "@types/node": "^22.13.10"
+    "@playwright/test": "1",
+    "@types/node": "22"
   }
 }
