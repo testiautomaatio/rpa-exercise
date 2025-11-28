@@ -15,12 +15,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Disable man-db auto-update (prevents apt-get hangs)
+      run: sudo rm -f /var/lib/man-db/auto-update
+
     - name: Install dependencies
       run: npm install
       timeout-minutes: 2
+
     - name: Install Chromium browser
       run: npx playwright install chromium --with-deps
       timeout-minutes: 2
+
     - name: Run tests
       run: npx playwright test --reporter="list,html" --project=chromium --trace=on --retries=0
       timeout-minutes: 3
