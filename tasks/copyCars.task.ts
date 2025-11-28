@@ -1,4 +1,5 @@
-import { expect, Locator, Page, test } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
+import { type Car } from './types';
 
 const legacySystem = "https://rpa-exercise-legacy-system.pages.dev/";
 const targetSystem = "https://rpa-exercise-target-system.pages.dev/";
@@ -21,11 +22,20 @@ const task = test.extend<{ legacyPage: LegacyPage, targetPage: TargetPage }>({
     }
 });
 
+
+/**
+ * This task uses the LegacyPage and TargetPage fixtures defined above and
+ * the LegacyPage and TargetPage classes defined below. With these abstractions,
+ * the task code is very concise and easy to read.
+ */
 task('copy cars from legacy system to the new one', async ({ legacyPage, targetPage }) => {
     await targetPage.open();
     await legacyPage.openDashboard();
 
+    // exportCars is a generator function, so it returns the cars one at a time:
     for await (const car of legacyPage.exportCars()) {
+
+        // for each car, submit it to the target system
         await targetPage.submitCar(car);
     }
 
@@ -33,11 +43,8 @@ task('copy cars from legacy system to the new one', async ({ legacyPage, targetP
 });
 
 class LegacyPage {
-    carTable: Locator;
 
-    constructor(readonly page: Page) {
-        this.carTable = this.page.getByText("Final_CarSheet_v5");
-    }
+    constructor(readonly page: Page) { }
 
     async openDashboard() {
         await this.page.goto(legacySystem + "dashboard.php");
@@ -48,6 +55,11 @@ class LegacyPage {
         await expect(this.carTable).toBeVisible({ timeout: 10_000 });
     }
 
+    /**
+     * A generator function that exports cars one at a time.
+     * You can read more about generators here:
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*
+     */
     async *exportCars() {
         const rows = await this.page.getByRole("row").all();
 
@@ -57,11 +69,11 @@ class LegacyPage {
             await row.getByRole("button", { name: "Details" }).click();
 
             // get current car details from dialog
-            const dialog = this.page.getByRole("dialog");
-            const car = await this.extractCarFromDialog(dialog);
+            const car = await this.extractCarFromDialog();
 
             await this.page.getByRole("button", { name: "Close" }).click();
 
+            // log the car to the console for debugging purposes
             console.table(car);
 
             // yield the current and move to the next one
@@ -70,15 +82,18 @@ class LegacyPage {
 
     }
 
-    private async extractCarFromDialog(dialog: Locator): Promise<Car> {
-        // Utility function to extract a single field by the field name
+    private async extractCarFromDialog(): Promise<Car> {
+        // Utility function to extract a single field by the field name.
         const get = async (fieldName: string) => {
-            const group = dialog.getByRole("group", { name: fieldName });
+            const group = this.dialog.getByRole("group", { name: fieldName });
             const text = await group.innerText();
+
+            // We only want the value in the field, so we remove the field name from the text:
             return text.replace(fieldName, "").trim()
         }
 
-        // Partial<> in TypeScript allows objects with some undefined properties
+        // Partial<> in TypeScript allows objects with some undefined properties.
+        // It allows missing but not extra properties or wrong types.
         const car: Partial<Car> = {};
 
         // Get the first fields from "general" tab
@@ -89,22 +104,35 @@ class LegacyPage {
         car.color = await get("Color");
 
         // click on the second tab
-        await dialog.getByRole("tab", { name: "Usage" }).click();
+        await this.dialog.getByRole("tab", { name: "Usage" }).click();
 
         // continue extracting fields
         car.streetLegal = (await get("Street legal")).includes("yes");
         car.owner = await get("Owner");
 
-        // the mileage field is a bit different, so we need to extract it separately
-        car.mileage = await dialog.getByRole("group", { name: "Mileage" }).locator("input").inputValue();
+        // the mileage field is a bit different, it's an input field and not just text
+        car.mileage = await this.dialog
+            .getByRole("group", { name: "Mileage" })
+            .locator("input")
+            .inputValue();
 
         return car as Car;
     }
+
+    get carTable() {
+        return this.page.getByText("Final_CarSheet_v5");
+    }
+
+    get dialog() {
+        return this.page.getByRole("dialog");
+    }
+
 }
 
 class TargetPage {
 
-    constructor(readonly page: Page) { }
+    constructor(readonly page: Page) {
+    }
 
     async openDashboard() {
         await this.page.goto(legacySystem + "dashboard.php");
@@ -115,6 +143,7 @@ class TargetPage {
     }
 
     async submitCar(car: Car) {
+        // map the string fields to form field locators
         const fields: Record<string, string> = {
             "License plate": car.licensePlate,
             "Make": car.make,
@@ -125,17 +154,23 @@ class TargetPage {
             "Color": car.color
         };
 
+        // fill each field with the corresponding value
         for (const [name, value] of Object.entries(fields)) {
             await this.page.getByRole("textbox", { name }).fill(value);
         }
 
+        // the street legal is a checkbox, so we handle it separately
         if (car.streetLegal) {
             await this.page.getByRole("checkbox", { name: "Street legal" }).check();
         }
 
-        await this.page.getByRole("button", { name: "Save" }).click();
+        await this.saveButton.click();
 
         await this.page.getByText(`${car.licensePlate} was added successfully!`).click();
+    }
+
+    get saveButton() {
+        return this.page.getByRole("button", { name: "Save" });
     }
 
     async assertExerciseIsCompleted() {
@@ -143,13 +178,3 @@ class TargetPage {
     }
 }
 
-type Car = {
-    licensePlate: string;
-    make: string;
-    model: string;
-    year: string;
-    color: string;
-    mileage: string;
-    streetLegal: boolean;
-    owner: string;
-}
