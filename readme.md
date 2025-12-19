@@ -1,3 +1,5 @@
+[English version of this readme is available in the file readme.en.md](./readme.en.md)
+
 # RPA-haaste (robotic process automation)
 
 Tässä tehtävässä sovelletaan Playwright-työkalua ohjelmistorobotiikan parissa. Tehtävän tarkoituksena on automatisoida tietojen siirtämistä yhdestä web-sovelluksesta toiseen.
