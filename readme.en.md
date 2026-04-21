@@ -10,6 +10,9 @@ In this template the terms "test" and "spec" are replaced with "task" to emphasi
 
 The task is graded in stages. You can earn most of the points even if you do not manage to transfer every piece of data.
 
+> [!TIP]
+> This repository includes a development container configuration as described in the [development container section](./devcontainer.md). With the container, you can avoid installation issues and have a ready-to-use isolated environment either in the cloud or locally.
+
 
 ## Prerequisites and setup
 
@@ -23,7 +26,6 @@ npm run tasks
 `npm run tasks` runs the tests on Chromium and produces both a report and trace files. The `tasks` script is defined in [`package.json`](./package.json) to provide a convenient command for running the tasks.
 
 Running the project also requires the browsers to be installed, which you hopefully did in a previous task. If needed, [install Chromium following the Playwright docs](https://playwright.dev/docs/browsers).
-
 
 > [!TIP]
 > The template includes a `tasks` folder with a pre-created [copyCars.task.ts](./tasks/copyCars.task.ts) file. You can implement your solution in that file or create new files as long as Playwright can find them under `tasks`. The example file does not use TypeScript features, so you may rename it to `.js` and write your solution in JavaScript if you prefer (e.g. `git mv copyCars.task.ts copyCars.task.js`).

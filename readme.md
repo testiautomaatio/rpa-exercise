@@ -12,6 +12,9 @@ Tehtäväpohjassa termit "test" ja "spec" on korvattu termillä "task", jotta te
 
 Tehtävä tarkastetaan vaiheittain ja siitä voi saada merkittävän osan pisteistä, vaikka et saisikaan kaikkia tietoja siirrettyä.
 
+> [!TIP]
+> Tämä repositorio sisältää development container -konfiguraation, joka on kuvattu [devcontainer.md-tiedostossa](./devcontainer.md). Kontin avulla voit välttää mahdolliset asennusongelmat ja käyttää valmista, eristettyä ympäristöä joko pilvipalvelussa tai paikallisesti.
+
 
 ## Tehtävän ja testauksen lähtökohdat
 
