@@ -6,7 +6,7 @@
     "tasks": "playwright test --reporter=list,html --project=chromium --trace=on"
   },
   "devDependencies": {
-    "@playwright/test": "1",
-    "@types/node": "22"
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.13.6"
   }
 }

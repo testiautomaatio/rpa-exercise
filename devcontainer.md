@@ -72,4 +72,6 @@ You can work around this by opening the report and setting the `--host` flag to 
 
 ### Graphical applications
 
-Opening graphical applications that are running inside the development container, such as the Playwright tools or the browser, might not work the same way as on your local machine. This is because the development container is a separate environment that does not have direct access to your local display server. You have better changes of opening graphical applications if you are using a local development container, as opposed to a cloud-based one, because the local container can be configured to use your local display server. However, even with a local container, you might need additional configuration or X11 forwarding to get graphical applications working properly.
+Opening graphical applications that are running inside the development container, such as the Playwright tools or the browser, might not work the same way as on your local machine. This is because the development container is a separate environment that does not have direct access to your local display server.
+
+We have included the [Desktop Lite feature](https://github.com/devcontainers/features/tree/main/src/desktop-lite) in the development container to provide a way to run graphical applications in a web-based desktop environment. You can access this environment by opening a browser and navigating to `http://localhost:6080`. This will give you a web-based desktop where you can use graphical applications that are installed in the development container.

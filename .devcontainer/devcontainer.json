@@ -14,5 +14,12 @@
 				"ms-playwright.playwright"
 			]
 		}
-	}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/desktop-lite:1": {}
+	},
+	"forwardPorts": [
+		// The port that the Desktop Lite feature uses to provide a web-based desktop environment
+		6080
+	]
 }

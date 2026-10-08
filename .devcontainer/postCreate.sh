@@ -8,5 +8,8 @@ set -euo pipefail
 # Install Playwright and types:
 npm install
 
-# Container does not include all browser dependencies, so we install them too:
-npx playwright install chromium --with-deps
+# Install Playwright dependencies for chromium:
+npx playwright install-deps chromium
+
+# Install the Chromium browser:
+npx playwright install chromium
