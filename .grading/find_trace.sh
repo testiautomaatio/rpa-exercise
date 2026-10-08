@@ -13,5 +13,9 @@ if grep -rqi "$SEARCH_STRING" --include="*.trace" test-results; then
     exit 0  # Success
 else
     echo "'$SEARCH_STRING' was not found in test traces."
+    echo
+    echo "This typically means that the tests did not cover this specific scenario."
+    echo "It could also mean that there was an error in running the tests, or a configuration issue,"
+    echo "so please check the test results and logs for any errors or warnings."
     exit 1  # Error
 fi

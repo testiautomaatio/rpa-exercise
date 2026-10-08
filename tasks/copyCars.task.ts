@@ -6,7 +6,7 @@ import TargetPage from './targetPage';
  * Extends the test function with two fixtures:
  * - legacyPage: represents the legacy system page
  * - targetPage: represents the target system page
- * 
+ *
  * These fixtures open a new browser tab for each page, so they can be used simultaneously.
  */
 const task = test.extend<{ legacyPage: LegacyPage, targetPage: TargetPage }>({

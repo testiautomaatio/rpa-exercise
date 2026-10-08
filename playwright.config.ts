@@ -12,8 +12,10 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  /* In this exercise, tests are called 'tasks' as we are focusing on task automation */
   testDir: './tasks',
-  testMatch: ["**/*.spec.ts", "**/*.task.ts"],
+  testMatch: ["**/*.spec.*", "**/*.task.*"],
+
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

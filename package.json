@@ -1,9 +1,12 @@
 {
   "name": "rpa-exercise",
+  "description": "In this exercise, you will create a simple RPA script using Playwright. The script will automate web-based tasks, such as filling out a form and scraping data from a website.",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "tasks": "playwright test --reporter=list,html --project=chromium --trace=on"
+  },
   "devDependencies": {
-    "@playwright/test": "^1.51.0",
-    "@types/node": "^22.13.10"
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.13.6"
   }
 }
