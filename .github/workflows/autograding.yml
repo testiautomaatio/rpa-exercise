@@ -27,7 +27,7 @@ jobs:
         node-version: 'lts/*'
 
     - name: Install dependencies using the devcontainer setup script
-      run: ./.devcontainer/postCreate.sh
+      run: bash .devcontainer/postCreate.sh
       timeout-minutes: 5
 
     - name: Run the example suite using autograder
